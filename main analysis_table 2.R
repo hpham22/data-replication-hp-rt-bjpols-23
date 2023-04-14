@@ -1,12 +1,14 @@
-load("data/asean_del.rda")
-
 library(ggeffects)
 library(MASS)
 library(stargazer)
 
+# Regression model for all cases
+load("data/asean_del.rda")
+
 model_1 <- glm.nb(ndelms ~ kofecgidjsdv + polityivsdv + avzcomplexv + naseanms + type + media + pol, 
                   data = asean_del)
   
+# Regression model for economic cases
 load("data/asean_del_econ.rda")
   
 model_2 <- glm.nb(ndelms ~ kofecgidjsdv + polityivsdv + avzcomplexv + naseanms + type + media, 
