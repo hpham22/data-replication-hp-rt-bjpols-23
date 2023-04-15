@@ -1,0 +1,41 @@
+load("data/asean_del.rda")
+
+library(ggeffects)
+library(ggplot2)
+library(patchwork)
+
+# Expected values of the response variable are derived from Model 1 of Table 2
+model_1 <- glm.nb(ndelms ~ kofecgidjsdv + polityivsdv + avzcomplexv + naseanms + type + media + pol, 
+                  data = asean_del)
+
+# Get the minimum and maximum values of "avzcomplex" and "kofecgidjsdv"
+min_complex <- min(asean_del$avzcomplex)
+max_complex <- mean(asean_del$avzcomplex) + sd(asean_del$avzcomplex)
+
+min_kofecgidj <- min(asean_del$kofecgidjsdv)
+max_kofecgidj <- mean(asean_del$kofecgidjsdv) + sd(asean_del$kofecgidjsdv)
+
+# Define the terms argument with the desired range, from min to one standard deviation above the mean
+terms_range_complex <- paste0("avzcomplex [", min_complex, ":", max_complex, "]")
+
+terms_range_kofecgidj <- paste0("kofecgidjsdv [", min_kofecgidj, ":", max_kofecgidj, "]")
+
+# Obtain the predicted values of "ndelms"
+pred_complex <- ggemmeans(model_1, terms = terms_range_complex,
+                          condition = c(naseanms = 7, type = 2, media = 1, pol = 1))
+
+pred_kofecgidj <- ggemmeans(model_1, terms = terms_range_kofecgidj,
+                            condition = c(naseanms = 7, type = 2, media = 1, pol = 1))
+
+# Plot the marginal effects of main predictor variables
+me_complex <- ggplot(pred_complex, aes(x, predicted)) + geom_point(alpha = .05) + 
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = .15) +
+  labs(title = NULL, x = "Policy Complexity", y = "Predicted Major Provisions Granting Discretion") +
+  geom_line(aes(x, predicted)) + theme_bw()
+  
+me_kofecgidj <- gplot(pred_kofecgidj, aes(x, predicted,group=1)) + geom_point(alpha = .05) + 
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = .25) +
+  labs(title = NULL, x = "Economic Heterogeneity", y = NULL) +
+  geom_line(aes(x, predicted)) + theme_bw()
+
+me_complex | me_kofecgidj
