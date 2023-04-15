@@ -20,7 +20,7 @@ terms_range_complex <- paste0("avzcomplex [", min_complex, ":", max_complex, "]"
 
 terms_range_kofecgidj <- paste0("kofecgidjsdv [", min_kofecgidj, ":", max_kofecgidj, "]")
 
-# Obtain the predicted values of "ndelms"
+# Obtain the predicted values of "ndelms", holding other categorical (continuous) variables at their median (mean) values
 pred_complex <- ggemmeans(model_1, terms = terms_range_complex,
                           condition = c(naseanms = 7, type = 2, media = 1, pol = 1))
 
@@ -28,14 +28,18 @@ pred_kofecgidj <- ggemmeans(model_1, terms = terms_range_kofecgidj,
                             condition = c(naseanms = 7, type = 2, media = 1, pol = 1))
 
 # Plot the marginal effects of main predictor variables
-me_complex <- ggplot(pred_complex, aes(x, predicted)) + geom_point(alpha = .05) + 
+me_complex <- ggplot(pred_complex, aes(x, predicted)) + 
+  geom_point(alpha = .05) + 
   geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = .15) +
-  labs(title = NULL, x = "Policy Complexity", y = "Predicted Major Provisions Granting Discretion") +
-  geom_line(aes(x, predicted)) + theme_bw()
+  geom_line(aes(x, predicted)) + 
+  labs(title = NULL, x = "Policy Complexity", y = "Predicted Major Provisions Granting Discretion") + 
+  theme_bw()
   
-me_kofecgidj <- gplot(pred_kofecgidj, aes(x, predicted,group=1)) + geom_point(alpha = .05) + 
-  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = .25) +
-  labs(title = NULL, x = "Economic Heterogeneity", y = NULL) +
-  geom_line(aes(x, predicted)) + theme_bw()
+me_kofecgidj <- gplot(pred_kofecgidj, aes(x, predicted, group = 1)) + 
+  geom_point(alpha = .05) + 
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = .15) + 
+  geom_line(aes(x, predicted)) + 
+  labs(title = NULL, x = "Economic Heterogeneity", y = NULL) + 
+  theme_bw()
 
 me_complex | me_kofecgidj
