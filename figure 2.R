@@ -1,5 +1,6 @@
 load("data/asean_del.rda")
 
+library(emmeans)
 library(ggeffects)
 library(ggplot2)
 library(MASS)
@@ -17,11 +18,11 @@ min_kofecgidj <- min(asean_del$kofecgidjsdv, na.rm = TRUE)
 max_kofecgidj <- mean(asean_del$kofecgidjsdv, na.rm = TRUE) + sd(asean_del$kofecgidjsdv, na.rm = TRUE)
 
 # Define the terms argument with the desired range, from min to one standard deviation above the mean
-terms_range_complex <- paste0("avzcomplex [", min_complex, ":", max_complex, "]")
+terms_range_complex <- paste0("avzcomplex [", toString(seq(from = min_complex, to = max_complex, length.out = 10)), "]")
 
-terms_range_kofecgidj <- paste0("kofecgidjsdv [", min_kofecgidj, ":", max_kofecgidj, "]")
+terms_range_kofecgidj <- paste0("kofecgidjsdv [", toString(seq(from = min_kofecgidj, to = max_kofecgidj, length.out = 10)), "]")
 
-# Obtain the predicted values of "ndelms", holding other categorical (continuous) variables at their median (mean) values
+# # Obtain the predicted values of "ndelms", holding other categorical (continuous) variables at their median (mean) values
 pred_complex <- ggemmeans(model_1, terms = terms_range_complex,
                           condition = c(naseanms = 7, type = 2, media = 1, pol = 1))
 
@@ -30,15 +31,13 @@ pred_kofecgidj <- ggemmeans(model_1, terms = terms_range_kofecgidj,
 
 # Plot the marginal effects of main predictor variables
 me_complex <- ggplot(pred_complex, aes(x, predicted)) + 
-  geom_point(alpha = .05) + 
-  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = .15) +
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = .25) +
   geom_line(aes(x, predicted)) + 
   labs(title = NULL, x = "Policy Complexity", y = "Predicted Major Provisions Granting Discretion") + 
   theme_bw()
   
 me_kofecgidj <- ggplot(pred_kofecgidj, aes(x, predicted, group = 1)) + 
-  geom_point(alpha = .05) + 
-  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = .15) + 
+  geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = .25) + 
   geom_line(aes(x, predicted)) + 
   labs(title = NULL, x = "Economic Heterogeneity", y = NULL) + 
   theme_bw()
