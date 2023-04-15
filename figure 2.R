@@ -6,7 +6,7 @@ library(MASS)
 library(patchwork)
 
 # Expected values of the response variable are derived from Model 1 of Table 2
-model_1 <- glm.nb(ndelms ~ kofecgidjsdv + polityivsdv + avzcomplexv + naseanms + type + media + pol, 
+model_1 <- glm.nb(ndelms ~ kofecgidjsdv + polityivsdv + avzcomplex + naseanms + type + media + pol, 
                   data = asean_del)
 
 # Get the minimum and maximum values of "avzcomplex" and "kofecgidjsdv"
