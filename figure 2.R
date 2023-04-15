@@ -10,11 +10,11 @@ model_1 <- glm.nb(ndelms ~ kofecgidjsdv + polityivsdv + avzcomplex + naseanms + 
                   data = asean_del)
 
 # Get the minimum and maximum values of "avzcomplex" and "kofecgidjsdv"
-min_complex <- min(asean_del$avzcomplex)
-max_complex <- mean(asean_del$avzcomplex) + sd(asean_del$avzcomplex)
+min_complex <- min(asean_del$avzcomplex, na.rm = TRUE)
+max_complex <- mean(asean_del$avzcomplex, na.rm = TRUE) + sd(asean_del$avzcomplex, na.rm = TRUE)
 
-min_kofecgidj <- min(asean_del$kofecgidjsdv)
-max_kofecgidj <- mean(asean_del$kofecgidjsdv) + sd(asean_del$kofecgidjsdv)
+min_kofecgidj <- min(asean_del$kofecgidjsdv, na.rm = TRUE)
+max_kofecgidj <- mean(asean_del$kofecgidjsdv, na.rm = TRUE) + sd(asean_del$kofecgidjsdv, na.rm = TRUE)
 
 # Define the terms argument with the desired range, from min to one standard deviation above the mean
 terms_range_complex <- paste0("avzcomplex [", min_complex, ":", max_complex, "]")
