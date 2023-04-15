@@ -36,7 +36,7 @@ me_complex <- ggplot(pred_complex, aes(x, predicted)) +
   labs(title = NULL, x = "Policy Complexity", y = "Predicted Major Provisions Granting Discretion") + 
   theme_bw()
   
-me_kofecgidj <- gplot(pred_kofecgidj, aes(x, predicted, group = 1)) + 
+me_kofecgidj <- ggplot(pred_kofecgidj, aes(x, predicted, group = 1)) + 
   geom_point(alpha = .05) + 
   geom_ribbon(aes(ymin = conf.low, ymax = conf.high), alpha = .15) + 
   geom_line(aes(x, predicted)) + 
