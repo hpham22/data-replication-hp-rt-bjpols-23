@@ -1,7 +1,7 @@
 This repository contains all the replication codes and dataset for
 
 "The Delegation of Discretionary Power in International Agreements: 
-Evidence from ASEAN"
+New Comparative Evidence from the Association of Southeast Asian Nations"
 
 by
 
