@@ -8,10 +8,10 @@ by
 Hung Pham and Robert Thomson,
 Monash University 
 
-Any enquiries about the reported analyses, please contact Mr. Hung Pham (PhD Candidate) at,
+Any enquiries about the reported findings, please contact Mr. Hung Pham (PhD Candidate) at,
 hung.pham1@monash.edu
 
-The findings were based on the following R packages,
+The analyses were based on the following R packages,
 
 emmeans;
 ggeffects;
