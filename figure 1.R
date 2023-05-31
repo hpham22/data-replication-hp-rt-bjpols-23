@@ -8,7 +8,7 @@ asean_delms <- ggplot(asean_del, aes(x=ndelms)) +
   geom_density(alpha=.35, fill="grey") +
   geom_vline(aes(xintercept=mean(ndelms, na.rm=T)),
              linetype="dashed", size=.5) +
-  labs( x="Major provisions granted national discretion", y="Density", title=NULL) +
+  labs(x="Major provisions granted national discretion", y="Density", title=NULL) +
   theme_bw()
 
 asean_delsupra <- ggplot(asean_del, aes(x=ndelsupra)) + 
