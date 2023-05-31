@@ -22,7 +22,7 @@ terms_range_complex <- paste0("avzcomplex [", toString(seq(from = min_complex, t
 
 terms_range_kofecgidj <- paste0("kofecgidjsdv [", toString(seq(from = min_kofecgidj, to = max_kofecgidj, length.out = 10)), "]")
 
-# # Obtain the predicted values of "ndelms", holding other categorical (continuous) variables at their median (mean) values
+# Obtain the predicted values of "ndelms", holding other categorical (continuous) variables at their median (mean) values
 pred_complex <- ggemmeans(model_1, terms = terms_range_complex,
                           condition = c(naseanms = 7, type = 2, media = 1, pol = 1))
 
